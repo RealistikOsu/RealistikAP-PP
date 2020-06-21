@@ -21,3 +21,5 @@ tags
 /swig/python/oppai.py
 *.whl
 *.pyc
+ppcalctest.py
+/test/map

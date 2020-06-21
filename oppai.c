@@ -702,7 +702,7 @@ int mods_apply(ezpp_t ez) {
     : (5 + (AR5_MS - arms) / AR_MS_STEP2);
 
   cs_multiplier = 1;
-  if (ez->mods & MODS_HR) cs_multiplier = 1.3f;
+  if (ez->mods & MODS_HR) cs_multiplier = 1.2f;
   if (ez->mods & MODS_EZ) cs_multiplier = 0.5f;
   ez->cs *= cs_multiplier;
   ez->cs = al_max(0.0f, al_min(10.0f, ez->cs));
@@ -726,7 +726,7 @@ int mods_apply(ezpp_t ez) {
 #define P_OVERRIDE_MODE (1<<0) /* mode_override */
 #define P_FOUND_AR (1<<1)
 
-#define CIRCLESIZE_BUFF_TRESHOLD 30.0f /* non-normalized diameter */
+#define CIRCLESIZE_BUFF_TRESHOLD 20.0f /* non-normalized diameter */
 #define PLAYFIELD_WIDTH 512.0f /* in osu!pixels */
 #define PLAYFIELD_HEIGHT 384.0f
 
