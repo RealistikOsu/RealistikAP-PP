@@ -1278,11 +1278,13 @@ void p_end(ezpp_t ez) {
 
   scaling_factor = 52.0f / radius;
 
-  /* cs buff (originally from osuElements) */
+  /* cs buff (originally from osuElements) 
   if (radius < CIRCLESIZE_BUFF_TRESHOLD) {
     scaling_factor *=
       1.0f + al_min((CIRCLESIZE_BUFF_TRESHOLD - radius), 5.0f) / 50.0f;
   }
+  commented to see what happens
+  */
 
   for (i = 0; i < ez->objects.len; ++i) {
     object_t* o = &ez->objects.data[i];
@@ -2116,12 +2118,12 @@ int pp_std(ezpp_t ez) {
 
   /* flashlight */
   if (ez->mods & MODS_FL) {
-    float fl_bonus = 1.0f + 0.35f * al_min(1.0f, ez->nobjects / 200.0f);
-    if (ez->nobjects > 200) {
-      fl_bonus += 0.3f * al_min(1, (ez->nobjects - 200) / 300.0f);
+    float fl_bonus = 1.0f + 0.15f * al_min(1.0f, ez->nobjects / 200.0f);
+    if (ez->nobjects > 400) {
+      fl_bonus += 0.3f * al_min(1, (ez->nobjects - 400) / 300.0f);
     }
-    if (ez->nobjects > 500) {
-      fl_bonus += (ez->nobjects - 500) / 1200.0f;
+    if (ez->nobjects > 700) {
+      fl_bonus += (ez->nobjects - 700) / 1200.0f;
     }
     ez->aim_pp *= fl_bonus;
   }

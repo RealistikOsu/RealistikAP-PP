@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/Francesco149/oppai-ng.svg?branch=master)](https://travis-ci.org/Francesco149/oppai-ng)
+# Oppai AutoPilot
 
-difficulty and pp calculator for osu!
+The PP calculator adjusted to the autopilot gamemode meant for RealistikOsu!
 
 this is a pure C89 rewrite of
 [oppai](https://github.com/Francesco149/oppai) with much lower
