@@ -1,6 +1,6 @@
-# Oppai AutoPilot
+# RosuApPp v1
 
-The PP calculator adjusted to the autopilot gamemode meant for RealistikOsu!
+The PP calculator adjusted to the autopilot gamemode meant for RealistikOsu! It is based on oppai-ng by Francesco149.
 
 this is a pure C89 rewrite of
 [oppai](https://github.com/Francesco149/oppai) with much lower
