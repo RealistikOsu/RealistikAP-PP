@@ -1509,17 +1509,17 @@ float d_spacing_weight(float distance, float delta_time,
       *is_single = distance > SINGLE_SPACING;
       distance = al_min(distance, SINGLE_SPACING);
       delta_time = al_max(delta_time, MAX_SPEED_BONUS);
-      speed_bonus = 1.0f;
+      speed_bonus = 0.7f; //REALISTIK NOTE: THIS IS WHERE THINGS MIGHT GO SERIOUSLY WRONG
       if (delta_time < MIN_SPEED_BONUS) {
         speed_bonus += (float)
           pow((MIN_SPEED_BONUS - delta_time) / 40.0f, 2);
       }
-      angle_bonus = 1.0f;
+      angle_bonus = 0.7f;
       if (!is_nan(angle) && angle < SPEED_ANGLE_BONUS_BEGIN) {
         float s = (float)sin(1.5 * (SPEED_ANGLE_BONUS_BEGIN - angle));
         angle_bonus += (float)pow(s, 2) / 3.57f;
         if (angle < M_PI / 2) {
-          angle_bonus = 1.28f;
+          angle_bonus = 0.85f; //why? idk
           if (distance < ANGLE_BONUS_SCALE && angle < M_PI / 4) {
             angle_bonus += (1 - angle_bonus)
               * al_min((ANGLE_BONUS_SCALE - distance) / 10, 1);
@@ -1547,10 +1547,10 @@ float d_spacing_weight(float distance, float delta_time,
           * pow(sin(angle - AIM_ANGLE_BONUS_BEGIN), 2)
           * al_max(distance - ANGLE_BONUS_SCALE, 0)
         );
-        result = 1.5f * (float)pow(al_max(0, angle_bonus), 0.99)
+        result = 1.5f * (float)pow(al_max(0, angle_bonus), 0.90) // TODO: mess with this value
           / al_max(AIM_TIMING_THRESHOLD, prev_strain_time);
       }
-      weighted_distance = (float)pow(distance, 0.99);
+      weighted_distance = (float)pow(distance, 0.97); // TODO: mess with this value
       return al_max(
         result + weighted_distance /
           al_max(AIM_TIMING_THRESHOLD, strain_time),
@@ -2118,9 +2118,9 @@ int pp_std(ezpp_t ez) {
 
   /* flashlight */
   if (ez->mods & MODS_FL) {
-    float fl_bonus = 1.0f + 0.15f * al_min(1.0f, ez->nobjects / 200.0f);
+    float fl_bonus = 1.0f + 0.10f * al_min(1.0f, ez->nobjects / 200.0f);
     if (ez->nobjects > 400) {
-      fl_bonus += 0.3f * al_min(1, (ez->nobjects - 400) / 300.0f);
+      fl_bonus += 0.2f * al_min(1, (ez->nobjects - 400) / 300.0f);
     }
     if (ez->nobjects > 700) {
       fl_bonus += (ez->nobjects - 700) / 1200.0f;
@@ -2129,7 +2129,8 @@ int pp_std(ezpp_t ez) {
   }
 
   /* acc bonus (bad aim can lead to bad acc) */
-  acc_bonus = 0.5f + accuracy / 2.0f;
+  acc_bonus = 0.5f + accuracy / (2.0f / accuracy);
+  //acc_bonus = 0.5f + accuracy / 2.0f;
 
   /* od bonus (high od requires better aim timing to acc) */
   od_squared = (float)pow(ez->od, 2);
@@ -2149,7 +2150,13 @@ int pp_std(ezpp_t ez) {
   ez->speed_pp *= hd_bonus;
 
   /* scale the speed value with accuracy slightly */
-  ez->speed_pp *= 0.02f + accuracy;
+  //ok rel here lets punish low acc!
+  if (accuracy < 0.9f) {
+    ez->speed_pp *= 0.015f + accuracy;
+  } else {
+    ez->speed_pp *= 0.02f + accuracy;
+  }
+  
 
   /* it's important to also consider accuracy difficulty when doing that */
   ez->speed_pp *= 0.96f + (od_squared / 1600.0f);
