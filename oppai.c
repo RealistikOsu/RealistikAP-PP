@@ -1509,7 +1509,7 @@ float d_spacing_weight(float distance, float delta_time,
       *is_single = distance > SINGLE_SPACING;
       distance = al_min(distance, SINGLE_SPACING);
       delta_time = al_max(delta_time, MAX_SPEED_BONUS);
-      speed_bonus = 0.7f; //REALISTIK NOTE: THIS IS WHERE THINGS MIGHT GO SERIOUSLY WRONG
+      speed_bonus = 0.7f; /*REALISTIK NOTE: THIS IS WHERE THINGS MIGHT GO SERIOUSLY WRONG*/
       if (delta_time < MIN_SPEED_BONUS) {
         speed_bonus += (float)
           pow((MIN_SPEED_BONUS - delta_time) / 40.0f, 2);
