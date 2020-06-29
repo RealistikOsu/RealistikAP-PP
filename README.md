@@ -1,4 +1,4 @@
-# RosuApPp v1
+# RealistikAP-PPv1 - (IN PROCESS OF BEING REPLACED)
 
 The PP calculator adjusted to the autopilot gamemode meant for RealistikOsu! It is based on oppai-ng by Francesco149.
 
