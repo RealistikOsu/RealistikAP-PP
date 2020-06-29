@@ -1547,10 +1547,10 @@ float d_spacing_weight(float distance, float delta_time,
           * pow(sin(angle - AIM_ANGLE_BONUS_BEGIN), 2)
           * al_max(distance - ANGLE_BONUS_SCALE, 0)
         );
-        result = 1.5f * (float)pow(al_max(0, angle_bonus), 0.90) // TODO: mess with this value
+        result = 1.5f * (float)pow(al_max(0, angle_bonus), 0.90)
           / al_max(AIM_TIMING_THRESHOLD, prev_strain_time);
       }
-      weighted_distance = (float)pow(distance, 0.97); // TODO: mess with this value
+      weighted_distance = (float)pow(distance, 0.97);
       return al_max(
         result + weighted_distance /
           al_max(AIM_TIMING_THRESHOLD, strain_time),
@@ -2130,7 +2130,6 @@ int pp_std(ezpp_t ez) {
 
   /* acc bonus (bad aim can lead to bad acc) */
   acc_bonus = 0.5f + accuracy / (2.0f / accuracy);
-  //acc_bonus = 0.5f + accuracy / 2.0f;
 
   /* od bonus (high od requires better aim timing to acc) */
   od_squared = (float)pow(ez->od, 2);
@@ -2150,7 +2149,7 @@ int pp_std(ezpp_t ez) {
   ez->speed_pp *= hd_bonus;
 
   /* scale the speed value with accuracy slightly */
-  //ok rel here lets punish low acc!
+  /*ok rel here lets punish low acc!*/
   if (accuracy < 0.9f) {
     ez->speed_pp *= 0.015f + accuracy;
   } else {
