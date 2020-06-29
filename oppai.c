@@ -1519,7 +1519,7 @@ float d_spacing_weight(float distance, float delta_time,
         float s = (float)sin(1.5 * (SPEED_ANGLE_BONUS_BEGIN - angle));
         angle_bonus += (float)pow(s, 2) / 3.57f;
         if (angle < M_PI / 2) {
-          angle_bonus = 0.85f; //why? idk
+          angle_bonus = 0.85f;
           if (distance < ANGLE_BONUS_SCALE && angle < M_PI / 4) {
             angle_bonus += (1 - angle_bonus)
               * al_min((ANGLE_BONUS_SCALE - distance) / 10, 1);
