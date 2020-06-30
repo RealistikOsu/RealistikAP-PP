@@ -2099,12 +2099,13 @@ int pp_std(ezpp_t ez) {
     ar_bonus += 0.01f * (8.0f - ez->ar);
   }
 
-  /* aim pp ---------------------------------------------------------- */
+  /* aim pp ---------------------------------------------------------- 
   ez->aim_pp = base_pp(ez->aim_stars);
   ez->aim_pp *= length_bonus;
   ez->aim_pp *= miss_penality;
   ez->aim_pp *= combo_break;
   ez->aim_pp *= ar_bonus;
+  */
 
   /* hidden */
   hd_bonus = 1.0f;
@@ -2112,7 +2113,7 @@ int pp_std(ezpp_t ez) {
     hd_bonus += 0.04f * (12.0f - ez->ar);
   }
 
-  ez->aim_pp *= hd_bonus;
+  /*ez->aim_pp *= hd_bonus;*/
 
   /* flashlight */
   if (ez->mods & MODS_FL) {
@@ -2123,7 +2124,6 @@ int pp_std(ezpp_t ez) {
     if (ez->nobjects > 500) {
       fl_bonus += (ez->nobjects - 500) / 1200.0f;
     }
-    ez->aim_pp *= fl_bonus;
   }
 
   /* acc bonus (bad aim can lead to bad acc) */
@@ -2133,8 +2133,6 @@ int pp_std(ezpp_t ez) {
   od_squared = (float)pow(ez->od, 2);
   od_bonus = 0.98f + od_squared / 2500.0f;
 
-  ez->aim_pp *= acc_bonus;
-  ez->aim_pp *= od_bonus;
 
   /* speed pp -------------------------------------------------------- */
   ez->speed_pp = base_pp(ez->speed_stars);
@@ -2170,7 +2168,6 @@ int pp_std(ezpp_t ez) {
 
   ez->pp = (float)(
     pow(
-      pow(ez->aim_pp, 1.1f) +
       pow(ez->speed_pp, 1.1f) +
       pow(ez->acc_pp, 1.1f),
       1.0f / 1.1f
