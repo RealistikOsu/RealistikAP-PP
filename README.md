@@ -1,8 +1,15 @@
-[![Build Status](https://travis-ci.org/Francesco149/oppai-ng.svg?branch=master)](https://travis-ci.org/Francesco149/oppai-ng)
+# RealistikAP PP v2
 
-difficulty and pp calculator for osu!
+RealistikOsu's PP system for the AutoPilot gamemode! It has been adjusted and balanced to suit the autopilot gamemode.
 
-this is a pure C89 rewrite of
+### Here are some of the principles behind it.
+
+- Abolish aim pp. It does not matter in autopilot.
+- Make accuracy pp more valuable.
+- Nerf flashlight due to its common abuse
+
+## Original Readme
+Oppai-ng is a pure C89 rewrite of
 [oppai](https://github.com/Francesco149/oppai) with much lower
 memory usage, smaller and easier to read codebase
 executable size and better performance.
