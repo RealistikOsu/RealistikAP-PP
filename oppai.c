@@ -2106,7 +2106,7 @@ int pp_std(ezpp_t ez) {
   ez->aim_pp *= combo_break;
   ez->aim_pp *= ar_bonus;
   */
-
+  ez->speed_pp = base_pp(ez->speed_stars); /*dec;are ot jere oh ye*/
   /* hidden */
   hd_bonus = 1.0f;
   if (ez->mods & MODS_HD) {
@@ -2117,25 +2117,29 @@ int pp_std(ezpp_t ez) {
 
   /* flashlight */
   if (ez->mods & MODS_FL) {
-    float fl_bonus = 1.0f + 0.35f * al_min(1.0f, ez->nobjects / 200.0f);
-    if (ez->nobjects > 200) {
-      fl_bonus += 0.3f * al_min(1, (ez->nobjects - 200) / 300.0f);
+    float fl_bonus = 1.0f + 0.2f * al_min(1.0f, ez->nobjects / 200.0f);
+    if (ez->nobjects > 300) {
+      fl_bonus += 0.3f * al_min(1, (ez->nobjects - 300) / 300.0f);
     }
-    if (ez->nobjects > 500) {
-      fl_bonus += (ez->nobjects - 500) / 1200.0f;
+    if (ez->nobjects > 700) {
+      fl_bonus += (ez->nobjects - 700) / 1200.0f;
     }
+    ez->speed_pp *= fl_bonus;
   }
 
   /* acc bonus (bad aim can lead to bad acc) */
-  acc_bonus = 0.5f + accuracy / 2.0f;
+  acc_bonus = 0.5f + accuracy;
 
   /* od bonus (high od requires better aim timing to acc) */
   od_squared = (float)pow(ez->od, 2);
   od_bonus = 0.98f + od_squared / 2500.0f;
 
+  /*Guess we have to add those bonuses to speed pp ig*/
+
+  ez->speed_pp *= acc_bonus;
+  ez->speed_pp *= od_bonus;
 
   /* speed pp -------------------------------------------------------- */
-  ez->speed_pp = base_pp(ez->speed_stars);
   ez->speed_pp *= length_bonus;
   ez->speed_pp *= miss_penality;
   ez->speed_pp *= combo_break;
